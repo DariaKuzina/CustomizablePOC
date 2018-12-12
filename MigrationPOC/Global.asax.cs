@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,10 +13,15 @@ namespace MigrationPOC
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+			string clientName = ConfigurationManager.AppSettings["ClientName"];
+
+			AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
-        }
+            BundleConfig.RegisterBundles(BundleTable.Bundles, clientName);
+
+			ViewEngines.Engines.Clear();			
+			ViewEngines.Engines.Add(new CustomViewEngine(clientName));
+		}
     }
 }

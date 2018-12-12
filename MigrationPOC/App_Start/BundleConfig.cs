@@ -6,7 +6,7 @@ namespace MigrationPOC
 	public class BundleConfig
 	{
 		// For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
-		public static void RegisterBundles(BundleCollection bundles)
+		public static void RegisterBundles(BundleCollection bundles, string clientName)
 		{
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
 						"~/Scripts/jquery-{version}.js"));
@@ -26,6 +26,9 @@ namespace MigrationPOC
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 					  "~/Content/bootstrap.css",
 					  "~/Content/site.css"));
+
+			bundles.Add(new StyleBundle("~/Content/clientStyle").Include(
+					  $"~/Content/{clientName}/CustomStyle.css"));
 		}
 	}
 }
